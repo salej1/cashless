@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ons from 'onsenui';
-import { Page, Toolbar, Input, Button, Modal,
-        ProgressCircular, Icon, ToolbarButton} from 'react-onsenui';
+import { Page, Input, Button, Modal,
+        ProgressCircular, Icon} from 'react-onsenui';
 import Controller from '../controller/Controller';
-import DetailPage from './DetailPage';
 
 export default class SearchPage extends React.Component {
     constructor(props) {
@@ -31,23 +30,6 @@ export default class SearchPage extends React.Component {
         this.setState({ "menuOpen": true });
     }
 
-    renderToolbar(){
-        return(
-            <Toolbar>
-                <div className='left'>
-                </div>
-                <div className='center'>
-                    Search
-                </div>
-                <div className='right'>
-                    <ToolbarButton onClick={this.show}>
-                        <Icon icon='ion-navicon, material:md-menu'/>
-                    </ToolbarButton>
-                </div>
-            </Toolbar>
-        );
-    }
-
     onInputChange(e){
         this.setState({"text": e.target.value});
     }
@@ -57,7 +39,8 @@ export default class SearchPage extends React.Component {
         let res = Controller.search(this.state.text);
         this.setState({"searching": false});
         if(res.length > 0){
-            this.props.parent.setState({page: "detail", info: res});
+            this.setState({"nomatch": ""});
+            this.props.app.setState({pageIndex: 1, mdpDetails: res});
         }
         else{
             this.setState({"nomatch": "No matches found"});
@@ -66,7 +49,7 @@ export default class SearchPage extends React.Component {
 
     render() {
         return (
-            <Page renderToolbar={this.renderToolbar}>
+            <Page style={{margin: "15px", fontFamily: "Source Sans Pro"}}>
                 <Modal isOpen={this.state.searching}>
                     <p style={{textAlign:'center'}}>Searching...</p>
                     <div className="center">

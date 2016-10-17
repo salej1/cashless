@@ -7,16 +7,23 @@ import Controller from '../controller/Controller';
 export default class DetailPage extends React.Component {
     constructor(props) {
         super(props);
-        debugger;
         this.props = props || {};
-        this.state = {
-            mdpDetails: props.info
-        };
+        this.state = {};
+        this.onSetupClick = this.onSetupClick.bind(this);
+        this.onActivateClick = this.onActivateClick.bind(this);
+    }
+
+    onSetupClick(){
+        this.props.app.setState({pageIndex: 2});
+    }
+
+    onActivateClick(){
+        this.props.app.setState({pageIndex: 3});
     }
 
     renderPage(){
-        if(typeof(this.state.mdpDetails) !== "undefined"){
-            let mdp = this.state.mdpDetails[0];
+        if(this.props.app.state.mdpDetails.length > 0){
+            let mdp = this.props.app.state.mdpDetails[0];
             return(
                 <Page style={{margin: "15px", fontFamily: "Source Sans Pro"}}>
                     <div>
@@ -46,12 +53,12 @@ export default class DetailPage extends React.Component {
                     </div>
                     <div style={{width: "100%"}}>
                         <div className="mid-wide-centered">
-                            <Button modifier="large" style={{width: "250px"}}>Link</Button>
+                            <Button modifier="large" style={{width: "250px"}} onClick={this.onSetupClick}>Setup</Button>
                         </div>
                     </div>
                     <div style={{width: "100%"}}>
                         <div className="mid-wide-centered">
-                            <Button modifier="large" style={{width: "250px"}}>Activate</Button>
+                            <Button modifier="large" style={{width: "250px"}} onClick={this.onActivateClick}>Activate</Button>
                         </div>
                     </div>
                 </Page>

@@ -97,3 +97,7 @@
     left: calc(50% - 125px);
     padding-top: 20px;
 }
+
+.instr{
+    font-size: 0.9em;
+}

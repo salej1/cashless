@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ons from 'onsenui';
 import { Page, Splitter, SplitterSide, List, ListHeader, ListItem,
-    SplitterContent} from 'react-onsenui';
+    SplitterContent, Toolbar, ToolbarButton, Icon} from 'react-onsenui';
 import SearchPage from './SearchPage';
 import DetailPage from './DetailPage';
 import SetupPage from './SetupPage';
@@ -12,27 +12,28 @@ import ActivityPage from './ActivityPage';
 class PageContent extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {page: props.page};
+        this.props = props;
+        this.state = {};
     }
 
     render() {
         let comp = {};
 
-        switch (this.state.page) {
-            case "search":
-                comp = <SearchPage parent={this}/>;
+        switch (this.props.page) {
+            case "Search":
+                comp = <SearchPage app={this.props.app}/>;
                 break;
-            case "detail":
-                comp = <DetailPage parent={this}/>;
+            case "Detail":
+                comp = <DetailPage app={this.props.app}/>;
                 break;
-            case "setup":
-                comp = <SetupPage parent={this}/>;
+            case "Setup":
+                comp = <SetupPage app={this.props.app}/>;
                 break;
-            case "activate":
-                comp = <ActivatePage parent={this}/>;
+            case "Activate":
+                comp = <ActivatePage app={this.props.app}/>;
                 break;
-            case "activity":
-                comp = <ActivityPage parent={this}/>;
+            case "Activity":
+                comp = <ActivityPage app={this.props.app}/>;
                 break;
             default:
                 return <div></div>;
@@ -46,12 +47,30 @@ export default class TemplatePage extends React.Component{
     constructor(props) {
         super(props);
         this.props = props || {};
-        this.state = {page: props.page};
+        this.state = {};
+        this.renderToolbar = this.renderToolbar.bind(this);
+    }
+
+    renderToolbar(){
+        return(
+            <Toolbar>
+                <div className='left'>
+                </div>
+                <div className='center'>
+                    {this.props.page}
+                </div>
+                <div className='right'>
+                    <ToolbarButton onClick={this.show}>
+                        <Icon icon='ion-navicon, material:md-menu'/>
+                    </ToolbarButton>
+                </div>
+            </Toolbar>
+        );
     }
 
     render() {
         return(
-        <Page>
+        <Page renderToolbar={this.renderToolbar}>
             <Splitter>
                 <SplitterSide
                   side='right'
@@ -70,7 +89,7 @@ export default class TemplatePage extends React.Component{
                   </Page>
                 </SplitterSide>
                 <SplitterContent>
-                    <PageContent page={this.state.page}/>
+                    <PageContent page={this.props.page} app={this.props.app}/>
                 </SplitterContent>
             </Splitter>
         </Page>);

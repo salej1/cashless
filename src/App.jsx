@@ -10,26 +10,26 @@ class Tabs extends React.Component {
     constructor(props) {
         super(props);
         this.props = props || {};
-        this.state = {};
+        this.state = {pageIndex: 0, mdpDetails: []};
         this.renderTabs = this.renderTabs.bind(this);
     }
 
     renderTabs(){
         return [
             {
-                content: <TemplatePage page="search"/>,
+                content: <TemplatePage page="Search" app={this}/>,
                 tab: <Tab label="Search" icon="ion-ios-search"/>
             }, {
-                content: <TemplatePage page="detail"/>,
+                content: <TemplatePage page="Detail" app={this}/>,
                 tab: <Tab label="Details" icon="ion-ios-paper-outline"/>
             }, {
-                content: <TemplatePage page="setup"/>,
+                content: <TemplatePage page="Setup" app={this}/>,
                 tab: <Tab label="Setup" icon="ion-ios-gear-outline"/>
             }, {
-                content: <TemplatePage page="activate"/>,
+                content: <TemplatePage page="Activate" app={this}/>,
                 tab: <Tab label="Activate" icon="ion-ios-color-wand-outline"/>
             }, {
-                content: <TemplatePage page="activity"/>,
+                content: <TemplatePage page="Activity" app={this}/>,
                 tab: <Tab label="Activity" icon="ion-ios-pulse"/>
             }
         ];
@@ -40,6 +40,7 @@ class Tabs extends React.Component {
             <Page>
               <Tabbar
                 renderTabs={this.renderTabs}
+                index = {this.state.pageIndex}
               />
             </Page>
         );
