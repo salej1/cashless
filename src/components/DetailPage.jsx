@@ -7,6 +7,7 @@ import Controller from '../controller/Controller';
 export default class DetailPage extends React.Component {
     constructor(props) {
         super(props);
+        debugger;
         this.props = props || {};
         this.state = {
             mdpDetails: props.info

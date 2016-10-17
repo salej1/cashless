@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import ons from 'onsenui';
 import {Navigator, Page, Tab, Tabbar} from 'react-onsenui';
 import LoginPage from './components/LoginPage';
-import SearchPage from './components/SearchPage';
-import DetailPage from './components/DetailPage';
-import SetupPage from './components/SetupPage';
-import ActivatePage from './components/ActivatePage';
-import ActivityPage from './components/ActivityPage';
+import TemplatePage from './components/TemplatePage';
 const initialPlatform = ons.platform.isAndroid() ? 'android' : 'ios';
 
 class Tabs extends React.Component {
@@ -21,19 +17,19 @@ class Tabs extends React.Component {
     renderTabs(){
         return [
             {
-                content: <SearchPage navigator={this.props.navigator}/>,
+                content: <TemplatePage page="search"/>,
                 tab: <Tab label="Search" icon="ion-ios-search"/>
             }, {
-                content: <DetailPage navigator={this.props.navigator}/>,
+                content: <TemplatePage page="detail"/>,
                 tab: <Tab label="Details" icon="ion-ios-paper-outline"/>
             }, {
-                content: <SetupPage navigator={this.props.navigator}/>,
+                content: <TemplatePage page="setup"/>,
                 tab: <Tab label="Setup" icon="ion-ios-gear-outline"/>
             }, {
-                content: <ActivatePage navigator={this.props.navigator}/>,
+                content: <TemplatePage page="activate"/>,
                 tab: <Tab label="Activate" icon="ion-ios-color-wand-outline"/>
             }, {
-                content: <ActivityPage navigator={this.props.navigator}/>,
+                content: <TemplatePage page="activity"/>,
                 tab: <Tab label="Activity" icon="ion-ios-pulse"/>
             }
         ];
