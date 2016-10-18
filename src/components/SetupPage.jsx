@@ -15,6 +15,7 @@ export default class SetupPage extends React.Component {
         this.renderOptions = this.renderOptions.bind(this);
         this.onCancelClick = this.onCancelClick.bind(this);
         this.onAssignClick = this.onAssignClick.bind(this);
+        this.onActivateClick = this.onActivateClick.bind(this);
     }
 
     onCancelClick(){
@@ -22,6 +23,16 @@ export default class SetupPage extends React.Component {
     }
 
     onAssignClick(){
+        ons.notification.confirm('Do you confirm the assignation of telemeter ' +
+            this.props.app.state.mdpDetails[0].physId + "?").then((res)=>{
+            if(res === 1){
+                ons.notification.alert("Assignation successful. Now the cashless unit needs to be activated.");
+                this.props.app.setState({pageIndex: 3});
+            }
+        });
+    }
+
+    onActivateClick(){
         this.props.app.setState({pageIndex: 3});
     }
 
@@ -47,16 +58,24 @@ export default class SetupPage extends React.Component {
                     <div>
                         <p><Icon icon="ion-location" size="32"></Icon> Location found</p>
                     </div>
-                    <div className="tab-what">Customer:</div> <div className="tab-val">{loc.cust}</div>
-                    <div className="tab-what">Location:</div> <div className="tab-val">{loc.loc}</div>
-                    <div className="tab-what">Machine:</div> <div className="tab-val">{loc.asset}</div>
-                    <div  className="tab-val">{loc.type}</div>
+                    <div>
+                        <div className="tab-what">Customer:</div> <div className="tab-val">{loc.cust}</div>
+                    </div>
+                    <div>
+                        <div className="tab-what">Location:</div> <div className="tab-val">{loc.loc}</div>
+                    </div>
+                    <div>
+                        <div className="tab-what">Machine:</div> <div className="tab-val">{loc.asset}</div>
+                    </div>
+                    <div>
+                        <div className="tab-what">Type:</div> <div className="tab-val">{loc.type}</div>
+                    </div>
                 </div>
             );
         }
         else{
             return (
-                <div>
+                <div style={{marginTop: "25px"}}>
                     No matches found
                 </div>
             );
@@ -64,24 +83,38 @@ export default class SetupPage extends React.Component {
     }
 
     renderHeader(){
-        debugger;
         if(this.props.app.state.mdpDetails.length > 0){
             let type = this.props.app.state.mdpDetails[0].type;
             let id = this.props.app.state.mdpDetails[0].physId;
             return(
                  <div>
-                     Setup {type} <span className="highlight">{id}</span>
+                     <strong>Phys Id: </strong> <span className="highlight">{id}</span>
                  </div>
                  );
         }
     }
 
     renderOptions(){
-        if(this.state.searched){
+        if(this.state.searched && this.state.details.length > 0 && this.state.details[0].status === "none"){
             return(
-                <div style={{width: "100%"}}>
+                <div>
+                    <div style={{marginTop: "15px"}}>
+                        <p>Please review the location details and click Assign to link the telemeter</p>
+                    </div>
+                    <div style={{width: "100%"}}>
+                        <div className="mid-wide-centered">
+                            <Button modifier="large" style={{width: "250px"}} onClick={this.onAssignClick}>Assign</Button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        else if(this.state.searched && this.state.details.length > 0 && this.state.details[0].status === "assigned"){
+            return(
+                <div style={{width: "100%", marginTop: "15px"}}>
+                    <Icon icon="ion-alert-circled" style={{color: "blue"}}></Icon> The telemeter is already assigned to this location
                     <div className="mid-wide-centered">
-                    <Button modifier="large" style={{width: "250px"}} onClick={this.onAssignClick}>Assign</Button>
+                        <Button modifier="large" style={{width: "250px"}} onClick={this.onActivateClick}>Activate</Button>
                     </div>
                 </div>
             );

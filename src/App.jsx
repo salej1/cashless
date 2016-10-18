@@ -18,19 +18,24 @@ class Tabs extends React.Component {
         return [
             {
                 content: <TemplatePage page="Search" app={this}/>,
-                tab: <Tab label="Search" icon="ion-ios-search"/>
+                tab: <Tab label="Search" icon="ion-ios-search"/>,
+                key: 1
             }, {
                 content: <TemplatePage page="Detail" app={this}/>,
-                tab: <Tab label="Details" icon="ion-ios-paper-outline"/>
+                tab: <Tab label="Details" icon="ion-ios-paper-outline"/>,
+                key: 2
             }, {
                 content: <TemplatePage page="Setup" app={this}/>,
-                tab: <Tab label="Setup" icon="ion-ios-gear-outline"/>
+                tab: <Tab label="Setup" icon="ion-ios-gear-outline"/>,
+                key: 3
             }, {
                 content: <TemplatePage page="Activate" app={this}/>,
-                tab: <Tab label="Activate" icon="ion-ios-color-wand-outline"/>
+                tab: <Tab label="Activate" icon="ion-ios-color-wand-outline"/>,
+                key: 4
             }, {
                 content: <TemplatePage page="Activity" app={this}/>,
-                tab: <Tab label="Activity" icon="ion-ios-pulse"/>
+                tab: <Tab label="Activity" icon="ion-ios-pulse"/>,
+                key: 5
             }
         ];
     }
@@ -67,8 +72,9 @@ export default class App extends React.Component {
         else{
             return(
                 <Navigator
-                    initialRoute={{comp: Tabs}}
+                    initialRoute={{comp: Tabs, key: 0}}
                     renderPage={this.renderPage}
+                    key="1"
               />
           );
         }

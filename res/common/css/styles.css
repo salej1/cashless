@@ -80,8 +80,15 @@
     width: 120px;
 }
 
-.tab-val{
+.tab-what-short{
+    color: #365d9b;
+    padding: 4px;
+    display: inline-block;
+    width: 70px;
+}
 
+.tab-val{
+    display: inline-block;
 }
 
 .highlight{

@@ -24,6 +24,20 @@ export default class LoginPage extends React.Component {
         this.parent.setState({
             "authorized": Controller.authenticate(this.state.username, this.state.password)
         });
+
+        this.launchIntoFullscreen(document.documentElement);
+    }
+
+    launchIntoFullscreen(element) {
+        if(element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if(element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
     }
 
     render() {

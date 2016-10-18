@@ -47,8 +47,19 @@ export default class TemplatePage extends React.Component{
     constructor(props) {
         super(props);
         this.props = props || {};
-        this.state = {};
+        this.state = {
+            menu:[
+                {key:1, label: "Logout"},
+                {key:2, label: "Settings"}
+            ]
+        };
         this.renderToolbar = this.renderToolbar.bind(this);
+        this.show = this.show.bind(this);
+        this.renderRow = this.renderRow.bind(this);
+    }
+
+    show(){
+        this.setState({menuOpen: true});
     }
 
     renderToolbar(){
@@ -68,6 +79,12 @@ export default class TemplatePage extends React.Component{
         );
     }
 
+    renderRow(row){
+        return(
+            <ListItem modifier='longdivider' tappable>{row.label}</ListItem>
+        );
+    }
+
     render() {
         return(
         <Page renderToolbar={this.renderToolbar}>
@@ -82,9 +99,9 @@ export default class TemplatePage extends React.Component{
                   isSwipeable={true}>
                   <Page>
                     <List
-                      dataSource={[1]}
-                      renderHeader={() => <ListHeader>Menu</ListHeader>}
-                      renderRow={(i) => <ListItem modifier='longdivider' tappable>{"Logout"}</ListItem>}
+                      dataSource={this.state.menu}
+                      renderHeader={() => <ListHeader>User options</ListHeader>}
+                      renderRow={this.renderRow}
                     />
                   </Page>
                 </SplitterSide>

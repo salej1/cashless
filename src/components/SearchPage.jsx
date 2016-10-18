@@ -64,7 +64,7 @@ export default class SearchPage extends React.Component {
                         onChange={this.onInputChange}></Input>
                     <Button onClick={this.onSearch}><Icon icon='ion-search'></Icon></Button>
                 </p>
-                <div style={{marginTop: "30px", textAlign: "center"}}>
+                <div style={{marginTop: "25px", textAlign: "center"}}>
                     {this.state.nomatch}
                 </div>
             </Page>
